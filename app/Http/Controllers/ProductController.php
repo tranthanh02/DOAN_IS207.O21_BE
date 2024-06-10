@@ -179,6 +179,7 @@ class ProductController extends Controller
                 'maxPrice' => 'numeric|nullable',
                 'styleId' => 'integer|nullable',
                 'sortOrder' => 'in:asc,desc|nullable',
+                'productName' => 'string|nullable',
             ]);
 
             if ($validator->fails()) {
@@ -197,6 +198,9 @@ class ProductController extends Controller
 
             if ($request->has('styleId')) {
                 $query->where('styleId', $request->input('styleId'));
+            }
+            if ($request->has('productName')) {
+                $query->where('productName', 'like', '%' . $request->input('productName') . '%');
             }
 
             if ($request->has('sortOrder')) {
